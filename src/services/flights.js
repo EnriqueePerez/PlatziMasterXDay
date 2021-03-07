@@ -1,5 +1,8 @@
 const mySqlLib = require('../db/mySQlLib');
-const parsingInsertedFlight = require('../utils/flightsParser');
+const {
+  parsingInsertedFlight,
+  parsingUpdatedFlight,
+} = require('../utils/flightsParser');
 
 class FlightsServices {
   constructor() {
@@ -22,12 +25,23 @@ class FlightsServices {
     const parsedValues = parsingInsertedFlight(data);
     console.log(parsedValues);
 
-    const createdFlight = await this.mySQL.create(
+    const createdFlight = await this.mySQL.createFlight(
       this.table,
       parsedValues,
       callback
     );
     return createdFlight;
+  }
+
+  async updateFlight(data, callback) {
+    // console.log(data);
+    const parsedValues = parsingUpdatedFlight(data);
+    const updatedFlight = await this.mySQL.updateFlight(
+      this.table,
+      parsedValues,
+      callback
+    );
+    return updatedFlight;
   }
 
   async deleteFlight(data, callback) {
@@ -39,11 +53,6 @@ class FlightsServices {
     );
     return deletedFlight;
   }
-
-  //   async updateFlight(data, callback) {
-
-  //     const updatedFlight = await this.mySQL.
-  //   }
 }
 
 module.exports = FlightsServices;

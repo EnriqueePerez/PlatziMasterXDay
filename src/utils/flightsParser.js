@@ -7,7 +7,6 @@ function parsingInsertedFlight(values) {
   //NumPassenger
 
   const dateNow = new Date();
-  //   console.log('tiempo ahora', dateNow.getTime());
 
   const rawDate = dateNow.toLocaleDateString('en-US', {
     timeZone: 'America/Mexico_City',
@@ -37,4 +36,31 @@ function parsingInsertedFlight(values) {
   return parsedValues;
 }
 
-module.exports = parsingInsertedFlight;
+function parsingUpdatedFlight(values) {
+  //getting the data and parsing it
+  //RouteId
+  //PlaneId
+  //StatusId
+  //NumPassanger
+  //Date
+  //Time
+  //FlightId
+
+  const parsedData = {
+    RouteId: values.RouteId,
+    PlaneId: values.PlaneId,
+    StatusId: values.StatusId,
+    NumPassanger: values.NumPassanger,
+    Date: values.Date,
+    Time: values.Time,
+    FlightId: values.id,
+  };
+  console.log('printing just the parsedObject of updatedFlight', parsedData);
+
+  const parsedValues = Object.values(parsedData);
+  console.log('printing just the values of updatedFlight', parsedValues);
+
+  return parsedValues;
+}
+
+module.exports = { parsingInsertedFlight, parsingUpdatedFlight };

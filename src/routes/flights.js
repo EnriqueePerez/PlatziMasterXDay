@@ -42,32 +42,46 @@ function flights(app) {
     }
   });
 
-  router.post('/', async (req, res) => {
+  router.post(
+    '/:RouteId/:StatusId/:PlaneId/:NumPassanger',
+    async (req, res) => {
+      try {
+        await flightServices.createFlight(req.params, (err, results) => {
+          if (err) {
+            console.log('error in flightServices.createFlight', err);
+          } else {
+            console.log(results);
+            res.status(201).send('flight inserted correctly');
+          }
+        });
+        //code to post flight
+      } catch (error) {
+        console.log('error in postFlight', error);
+      }
+    }
+  );
+
+  router.put('/:id', async (req, res) => {
     try {
-      await flightServices.createFlight(req.body, (err, results) => {
+      const bodyWithId = { ...req.body, ...req.params };
+      console.log(req.params);
+      await flightServices.updateFlight(bodyWithId, (err, results) => {
         if (err) {
-          console.log('error in flightServices.createFlight', err);
+          console.log('error en flightServices.updateFlight', err);
         } else {
           console.log(results);
-          res.status(201).send('flight inserted correctly');
+          res.status(201).send('flight updated correctly');
         }
       });
-      //code to post flight
-    } catch (error) {
-      console.log('error in postFlight', error);
-    }
-  });
-
-  router.put('/', async (req, res) => {
-    try {
     } catch (error) {
       console.log('error in updateFlight', error);
     }
   });
 
-  router.delete('/', async (req, res) => {
+  router.delete('/:id', async (req, res) => {
     try {
-      await flightServices.deleteFlight(req.body, (err, results) => {
+      const bodyWithId = { ...req.body, ...req.params };
+      await flightServices.deleteFlight(bodyWithId, (err, results) => {
         if (err) {
           console.log('err in flightServices.deleteFlight', err);
         } else {
