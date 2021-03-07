@@ -87,7 +87,7 @@ function flights(app) {
         } else {
           console.log(results);
           console.log('flight deleted sucesfully');
-          res.send(201).send('flight deleted sucesfully');
+          res.status(201).send('flight deleted sucesfully');
         }
       });
       //code to delete flights

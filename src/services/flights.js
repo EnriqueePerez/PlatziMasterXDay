@@ -45,7 +45,7 @@ class FlightsServices {
   }
 
   async deleteFlight(data, callback) {
-    const id = data.FlightId;
+    const id = data.id;
     const deletedFlight = await this.mySQL.deleteFlight(
       this.table,
       id,

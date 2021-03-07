@@ -82,17 +82,17 @@ class mySqlLib {
     return query;
   }
 
-  async deleteFlight(table, id, callback) {
+  async deleteFlight(table, data, callback) {
     const query = await this.connect()
       .then((db) => {
         return db.query(
           `DELETE FROM ${table} WHERE FlightId=? LIMIT 1;`,
-          id,
+          data,
           callback
         );
       })
       .catch((err) => {
-        console.log('error in delete mySqlLib');
+        console.log('error in delete mySqlLib', err);
       });
     return query;
   }
